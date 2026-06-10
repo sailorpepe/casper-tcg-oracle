@@ -11,7 +11,7 @@
 ![Odra](https://img.shields.io/badge/Framework-Odra-blue?style=flat-square)
 ![License: BSL-1.1](https://img.shields.io/badge/License-BSL_1.1-red?style=flat-square)
 
-[Contract Explorer (Testnet)](https://testnet.cspr.live/contract/5e160e1d845e2c438343ab6a084620b7bc603099cd3ba3f938c4b1b88e17b8f9) · [x402 Server Integration](https://github.com/sailorpepe/undesirables-x402-server)
+[Contract Explorer (Testnet)](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77) · [x402 Server Integration](https://github.com/sailorpepe/undesirables-x402-server)
 
 </div>
 
@@ -29,7 +29,7 @@ By porting our core EVM Solidity pricing logic into **Odra / Rust WebAssembly**,
 
 ### 1. Smart Contract (Rust / Odra)
 - **`src/merkle_oracle.rs`**: Core price verification logic. Takes a Merkle root and allows verification of TCG price proofs directly on the Casper network.
-- **The Database Contract**: We upload the compressed Merkle Root of our entire **276,000+ product database** to the [Merkle Price Oracle Contract (Testnet)](https://testnet.cspr.live/contract/5e160e1d845e2c438343ab6a084620b7bc603099cd3ba3f938c4b1b88e17b8f9) daily. This trustless design allows any agent to independently verify a card's price on-chain without trusting our off-chain API.
+- **The Database Contract**: We upload the compressed Merkle Root of our entire **276,000+ product database** to the [Merkle Price Oracle Contract (Testnet)](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77) daily. This trustless design allows any agent to independently verify a card's price on-chain without trusting our off-chain API.
 - **WASM Build**: Compiled down to a secure `MerklePriceOracle.wasm` binary using `cargo odra build`.
 
 ### 2. Secure Deployment Proxy
@@ -38,6 +38,11 @@ By porting our core EVM Solidity pricing logic into **Odra / Rust WebAssembly**,
 ### 3. Parallel Python Infrastructure
 - **`casper_deployer.py` & `casper_merkle_builder.py`**: Interacts with the `casper-client` CLI via Python subprocesses. 
 - *Zero-Disruption Design*: Designed to run perfectly parallel to our existing LitVM and Mantle infrastructure without disrupting ongoing operations.
+
+### 4. x402 Server API Endpoints
+The backend [x402 Server](https://github.com/sailorpepe/undesirables-x402-server) was extended to seamlessly route AI micropayments to the Casper Network:
+- **`GET /api/v1/casper/price`**: Receives an AI request (with an L402 payment token in the header) to **search for a specific trading card**. It verifies the micropayment (even at 1 CSPR, making it almost free), and returns the certified, on-chain Merkle pricing data for that card directly from the Casper database contract.
+- Automatically handles wallet signature authentication for the Casper Network via the local `.pem` vault.
 
 ---
 

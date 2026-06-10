@@ -1,0 +1,113 @@
+{
+  "jsonrpc": "2.0",
+  "id": -2696012819529357735,
+  "result": {
+    "api_version": "2.0.0",
+    "deploy": {
+      "hash": "1b0a63c3cbd4ad15a218d1c694907d351cfd848603c729245959003724f4273a",
+      "header": {
+        "account": "0202e5e6d06926853408f5cbe3021c2245c67a864094ee2cb70a1687d086cd25655f",
+        "timestamp": "2026-06-10T22:13:50.686Z",
+        "ttl": "30m",
+        "gas_price": 1,
+        "body_hash": "4edbd3fd7ab3b7d83c659cae8b915fea524e399bff84979394df80a41aa53d64",
+        "dependencies": [],
+        "chain_name": "casper-test"
+      },
+      "payment": {
+        "ModuleBytes": {
+          "module_bytes": "",
+          "args": [
+            [
+              "amount",
+              {
+                "cl_type": "U512",
+                "bytes": "0500e8764817",
+                "parsed": "100000000000"
+              }
+            ]
+          ]
+        }
+      },
+      "session": {
+        "ModuleBytes": {
+          "module_bytes": "[584220 hex chars]",
+          "args": []
+        }
+      },
+      "approvals": [
+        {
+          "signer": "0202e5e6d06926853408f5cbe3021c2245c67a864094ee2cb70a1687d086cd25655f",
+          "signature": "02a3a002e8a33722bb1b0485f70e4f35d255725bb95273ef00e2ac0bb52eb04b297a68c220c24d049d10254dda1d09f5c267ab628af8f26b68a03a7e7a7f73384f"
+        }
+      ]
+    },
+    "execution_info": {
+      "block_hash": "0b494e2588c2b6825eb71019f2c500c268799a7723871a53e773fcf2fcb3cf8a",
+      "block_height": 8138794,
+      "execution_result": {
+        "Version2": {
+          "initiator": {
+            "PublicKey": "0202e5e6d06926853408f5cbe3021c2245c67a864094ee2cb70a1687d086cd25655f"
+          },
+          "error_message": "Wasm preprocessing error: Deserialization error: Bulk memory operations are not supported",
+          "current_price": 1,
+          "limit": "100000000000",
+          "consumed": "0",
+          "cost": "100000000000",
+          "refund": "0",
+          "transfers": [],
+          "size_estimate": 292393,
+          "effects": [
+            {
+              "key": "balance-hold-012061a9552c76e17245ec085fc1d4d4d220b5b933aa5601c4f077e82bc0626674626a99b39e010000",
+              "kind": {
+                "Write": {
+                  "CLValue": {
+                    "cl_type": "U512",
+                    "bytes": "0500e8764817",
+                    "parsed": "100000000000"
+                  }
+                }
+              }
+            },
+            {
+              "key": "balance-hold-012061a9552c76e17245ec085fc1d4d4d220b5b933aa5601c4f077e82bc0626674626a99b39e010000",
+              "kind": {
+                "Prune": "balance-hold-012061a9552c76e17245ec085fc1d4d4d220b5b933aa5601c4f077e82bc0626674626a99b39e010000"
+              }
+            },
+            {
+              "key": "balance-2061a9552c76e17245ec085fc1d4d4d220b5b933aa5601c4f077e82bc0626674",
+              "kind": {
+                "Write": {
+                  "CLValue": {
+                    "cl_type": "U512",
+                    "bytes": "060098d44d4604",
+                    "parsed": "4700000000000"
+                  }
+                }
+              }
+            },
+            {
+              "key": "uref-5d7b1b23197cda53dec593caf30836a5740afa2279b356fae74bf1bdc2b2e725-000",
+              "kind": "Identity"
+            },
+            {
+              "key": "uref-5d7b1b23197cda53dec593caf30836a5740afa2279b356fae74bf1bdc2b2e725-000",
+              "kind": {
+                "Write": {
+                  "CLValue": {
+                    "cl_type": "U512",
+                    "bytes": "085303af003e9c8cba",
+                    "parsed": "13442290777907462995"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
