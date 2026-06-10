@@ -5,7 +5,7 @@ version = "0.1.0"
 
 [dependencies]
 odra = { version = "2.7.0", features = [], default-features = false }
-
+odra-cli = "2.8.0"
 [dev-dependencies]
 odra-test = { version = "2.7.0", features = [], default-features = false }
 

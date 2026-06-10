@@ -13,12 +13,19 @@ def deploy_contract(wasm_path: str, private_key_path: str):
         
     print(f"Deploying {wasm_path} using official Casper CLI...")
     cmd = [
-        "/Users/davidluna/.cargo/bin/casper-client", "put-deploy",
+        os.path.expanduser("~/.cargo/bin/casper-client"), "put-deploy",
         "--node-address", NODE_RPC,
         "--chain-name", CHAIN_NAME,
         "--secret-key", private_key_path,
-        "--payment-amount", "100000000000",  # 100 CSPR gas
-        "--session-path", wasm_path
+        "--payment-amount", "350000000000",  # 350 CSPR gas
+        "--session-path", wasm_path,
+        "--session-arg", "odra_cfg_package_hash_key_name:string='merkle_oracle_vfinal'",
+        "--session-arg", "odra_cfg_allow_key_override:bool='true'",
+        "--session-arg", "odra_cfg_is_upgradable:bool='true'",
+        "--session-arg", "odra_cfg_is_upgrade:bool='false'",
+        "--session-arg", "odra_cfg_is_factory_upgrade:bool='false'",
+        "--session-arg", "odra_cfg_create_upgrade_group:bool='false'",
+        "--session-arg", "odra_cfg_constructor:string='init'"
     ]
     
     result = subprocess.run(cmd, capture_output=True, text=True)

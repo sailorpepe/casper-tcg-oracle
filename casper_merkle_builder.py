@@ -52,7 +52,7 @@ def push_to_casper(root: bytes, contract_hash: str, key_path: str):
     print("Pushing root to Casper Testnet via CLI...")
     root_hex = root.hex()
     cmd = [
-        "/Users/davidluna/.cargo/bin/casper-client", "put-deploy",
+        os.path.expanduser("~/.cargo/bin/casper-client"), "put-deploy",
         "--node-address", NODE_RPC,
         "--chain-name", CHAIN_NAME,
         "--secret-key", key_path,
