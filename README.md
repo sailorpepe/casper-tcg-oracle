@@ -29,6 +29,7 @@ By porting our core EVM Solidity pricing logic into **Odra / Rust WebAssembly**,
 
 ### 1. Smart Contract (Rust / Odra)
 - **`src/merkle_oracle.rs`**: Core price verification logic. Takes a Merkle root and allows verification of TCG price proofs directly on the Casper network.
+- **The Database Contract**: We upload the compressed Merkle Root of our entire **276,000+ product database** to the [Merkle Price Oracle Contract (Testnet)](https://testnet.cspr.live/contract/5e160e1d845e2c438343ab6a084620b7bc603099cd3ba3f938c4b1b88e17b8f9) daily. This trustless design allows any agent to independently verify a card's price on-chain without trusting our off-chain API.
 - **WASM Build**: Compiled down to a secure `MerklePriceOracle.wasm` binary using `cargo odra build`.
 
 ### 2. Secure Deployment Proxy
