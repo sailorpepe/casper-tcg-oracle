@@ -11,7 +11,7 @@
 ![Odra](https://img.shields.io/badge/Framework-Odra-blue?style=flat-square)
 ![License: BSL-1.1](https://img.shields.io/badge/License-BSL_1.1-red?style=flat-square)
 
-[Contract Explorer (Testnet)](https://testnet.cspr.cloud/contract/hash-5e160e1d845e2c438343ab6a084620b7bc603099cd3ba3f938c4b1b88e17b8f9) · [x402 Server Integration](https://github.com/sailorpepe/undesirables-x402-server)
+[Contract Explorer (Testnet)](https://testnet.cspr.live/contract/5e160e1d845e2c438343ab6a084620b7bc603099cd3ba3f938c4b1b88e17b8f9) · [x402 Server Integration](https://github.com/sailorpepe/undesirables-x402-server)
 
 </div>
 
