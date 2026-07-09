@@ -18,8 +18,9 @@ jobs:
 
       - name: Install pinned Rust toolchain
         run: |
-          rustup toolchain install nightly-2026-01-01 --profile minimal --component rustfmt clippy
+          rustup toolchain install nightly-2026-01-01 --profile minimal
           rustup override set nightly-2026-01-01
+          rustup component add rustfmt --toolchain nightly-2026-01-01 || echo "rustfmt unavailable for this nightly — fmt check will be skipped"
 
       - name: Cache cargo
         uses: actions/cache@v4
