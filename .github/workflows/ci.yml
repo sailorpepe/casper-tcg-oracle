@@ -23,7 +23,7 @@ jobs:
           rustup component add rustfmt --toolchain nightly-2026-01-01 || echo "rustfmt unavailable for this nightly — fmt check will be skipped"
 
       - name: Cache cargo
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/registry
