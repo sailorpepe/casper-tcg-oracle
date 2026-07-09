@@ -40,8 +40,8 @@ By committing the Merkle root of our price database to Casper daily, any agent c
 - *Zero-Disruption Design*: Designed to run perfectly parallel to our existing LitVM and Mantle infrastructure without disrupting ongoing operations.
 
 ### 4. x402 Server API Endpoints
-The backend [x402 Server](https://github.com/sailorpepe/undesirables-x402-server) was extended to seamlessly route AI micropayments to the Casper Network:
-- **`GET /api/v1/casper/price`**: An agent requests a specific card's price. The endpoint issues a native-CSPR **HTTP 402 payment-required challenge** (priced at 1 CSPR — ~50x cheaper than the USDC endpoints) and returns the certified, on-chain Merkle pricing data for that card from the Casper database contract. *The 402 payment gate and on-chain price resolution are live and demoable; end-to-end CSPR settlement verification is in progress.*
+The backend [x402 Server](https://github.com/sailorpepe/undesirables-x402-server) exposes a Casper-anchored price endpoint behind the standard x402 payment gate:
+- **`GET /api/v1/casper/price`**: An agent requests a specific card's price and receives price data **anchored to the on-chain Casper Merkle root** — independently verifiable against the contract ([`0235f90c…`](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77)) without trusting our API. Access is gated by the oracle's standard **x402 HTTP 402 challenge (USDC on Base)**. *The Casper contribution is the on-chain price Merkle root, not a CSPR-native payment leg — the 402 gate is live and demoable; native-CSPR settlement is not implemented.*
 - Automatically handles wallet signature authentication for the Casper Network via the local `.pem` vault.
 
 ---
