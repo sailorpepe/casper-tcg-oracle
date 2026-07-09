@@ -21,7 +21,7 @@
 
 This repository houses the **Merkle Price Oracle** for the **Casper Testnet**, built as part of the Agentic Buildathon. It provides trustless, on-chain verification for over 276,000 Trading Card Game (TCG) products and connects directly to the [LitVM x402 Server ecosystem](https://github.com/sailorpepe/undesirables-x402-server).
 
-By porting our core EVM Solidity pricing logic into **Odra / Rust WebAssembly**, we bring institutional-grade stochastic finance modeling (Merton Jump-Diffusion Monte Carlo) to the Casper Network.
+By committing the Merkle root of our price database to Casper daily, any agent can independently verify a card's price on-chain without trusting our off-chain API. Prices come from our **conformal-calibrated risk oracle** — regime-aware split-conformal price bands with honest Value-at-Risk by default; Monte Carlo (Merton jump-diffusion) is available opt-in via `model=`.
 
 ---
 
@@ -41,7 +41,7 @@ By porting our core EVM Solidity pricing logic into **Odra / Rust WebAssembly**,
 
 ### 4. x402 Server API Endpoints
 The backend [x402 Server](https://github.com/sailorpepe/undesirables-x402-server) was extended to seamlessly route AI micropayments to the Casper Network:
-- **`GET /api/v1/casper/price`**: Receives an AI request (with an L402 payment token in the header) to **search for a specific trading card**. It verifies the micropayment (even at 1 CSPR, making it almost free), and returns the certified, on-chain Merkle pricing data for that card directly from the Casper database contract.
+- **`GET /api/v1/casper/price`**: An agent requests a specific card's price. The endpoint issues a native-CSPR **HTTP 402 payment-required challenge** (priced at 1 CSPR — ~50x cheaper than the USDC endpoints) and returns the certified, on-chain Merkle pricing data for that card from the Casper database contract. *The 402 payment gate and on-chain price resolution are live and demoable; end-to-end CSPR settlement verification is in progress.*
 - Automatically handles wallet signature authentication for the Casper Network via the local `.pem` vault.
 
 ---
