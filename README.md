@@ -19,9 +19,9 @@
 
 ## ⚡ Overview
 
-This repository houses the **Merkle Price Oracle** for the **Casper Testnet**, built as part of the Agentic Buildathon. It provides trustless, on-chain verification for over 276,000 Trading Card Game (TCG) products and connects directly to the [LitVM x402 Server ecosystem](https://github.com/sailorpepe/undesirables-x402-server).
+This repository houses the **Merkle Price Oracle** for the **Casper Testnet**, built as part of the Agentic Buildathon. It provides trustless, on-chain verification for over 284,000 Trading Card Game (TCG) products and connects directly to the [LitVM x402 Server ecosystem](https://github.com/sailorpepe/undesirables-x402-server).
 
-By committing the Merkle root of our price database to Casper daily, any agent can independently verify a card's price on-chain without trusting our off-chain API. Prices come from our **conformal-calibrated risk oracle** — regime-aware split-conformal price bands with honest Value-at-Risk by default; Monte Carlo (Merton jump-diffusion) is available opt-in via `model=`.
+By committing the Merkle root of our price database to Casper **every hour**, any agent can independently verify a card's price on-chain without trusting our off-chain API. Prices come from our **conformal-calibrated risk oracle** — regime-aware split-conformal price bands with honest Value-at-Risk by default; Monte Carlo (Merton jump-diffusion) is available opt-in via `model=`.
 
 ---
 
@@ -29,7 +29,7 @@ By committing the Merkle root of our price database to Casper daily, any agent c
 
 ### 1. Smart Contract (Rust / Odra)
 - **`src/merkle_oracle.rs`**: Core price verification logic. Takes a Merkle root and allows verification of TCG price proofs directly on the Casper network.
-- **The Database Contract**: We upload the compressed Merkle Root of our entire **276,000+ product database** to the [Merkle Price Oracle Contract (Testnet)](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77) daily. This trustless design allows any agent to independently verify a card's price on-chain without trusting our off-chain API.
+- **The Database Contract**: We upload the compressed Merkle Root of our entire **284,000+ product database** to the [Merkle Price Oracle Contract (Testnet)](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77) **hourly**. This trustless design allows any agent to independently verify a card's price on-chain without trusting our off-chain API.
 - **WASM Build**: Compiled down to a secure `MerklePriceOracle.wasm` binary using `cargo odra build`.
 
 ### 2. Secure Deployment Proxy

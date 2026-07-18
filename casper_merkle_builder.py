@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from web3 import Web3
 from eth_abi import encode as abi_encode
 
-DB_PATH = os.path.expanduser("~/.cache/market_memory.sqlite")
+DB_PATH = os.path.expanduser("~/Documents/undesirables-mcp-server/.cache/market_memory.sqlite")
 NODE_RPC = "http://127.0.0.1:7777"
 CHAIN_NAME = "casper-test"
 
@@ -51,15 +51,17 @@ def load_products(db_path: str):
 def push_to_casper(root: bytes, contract_hash: str, key_path: str):
     print("Pushing root to Casper Testnet via CLI...")
     root_hex = root.hex()
+    if root_hex.startswith("0x"):
+        root_hex = root_hex[2:]
     cmd = [
         os.path.expanduser("~/.cargo/bin/casper-client"), "put-deploy",
         "--node-address", NODE_RPC,
         "--chain-name", CHAIN_NAME,
         "--secret-key", key_path,
-        "--payment-amount", "1000000000",  # 1 CSPR gas
+        "--payment-amount", "20000000000",  # 20 CSPR gas
         "--session-hash", contract_hash,
         "--session-entry-point", "update_root",
-        "--session-arg", f"new_root:byte_array='{root_hex}'"
+        "--session-arg", f"new_root:byte_array_32='{root_hex}'"
     ]
     
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -68,7 +70,8 @@ def push_to_casper(root: bytes, contract_hash: str, key_path: str):
         print(result.stdout)
     else:
         print("❌ Failed to push root!")
-        print(result.stderr)
+        print("STDOUT:", result.stdout)
+        print("STDERR:", result.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":
@@ -82,6 +85,6 @@ if __name__ == "__main__":
     products, date = load_products(DB_PATH)
     leaves = [compute_leaf(*p) for p in products]
     root, _ = build_merkle_tree(leaves)
-    print(f"Merkle Root: 0x{root.hex()}")
+    print(f"Merkle Root: {root.hex() if root.hex().startswith('0x') else '0x' + root.hex()}")
     
     push_to_casper(root, args.contract, args.key)
