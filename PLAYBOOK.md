@@ -44,9 +44,19 @@ The on-chain `merkle_root` value it wrote:
 ```
 0xab759847e136ed63c8cee15ab2f00d57e15ca60edff7f347440757c768b2ba0e
 ```
-Confirm the deploy executed **Success**, and that `get_root` returns this value.
+Confirm the deploy executed **Success**. To read the committed root straight
+from the deploy itself (the contract stores state in Odra's internal
+dictionary, so a plain named-key query won't find it — the session args are
+the honest, judge-friendly source):
+```bash
+casper-client get-deploy --node-address <RPC> <deploy_hash> \
+  | python3 -c "import json,sys; \
+    args=json.load(sys.stdin)['result']['deploy']['session']['StoredContractByHash']['args']; \
+    print([v.get('parsed') for n,v in args if n=='new_root'][0])"
+```
 (The root changes hourly as prices update — this is the point: fresh, timestamped,
-on-chain.)
+on-chain. To verify independently, rebuild the tree from the public dataset with
+`casper_merkle_builder.py` and compare roots.)
 
 ## Step 4 — Build & test the contract locally
 
