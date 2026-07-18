@@ -41,7 +41,7 @@ By committing the Merkle root of our price database to Casper **every hour**, an
 
 ### 4. x402 Server API Endpoints
 The backend [x402 Server](https://github.com/sailorpepe/undesirables-x402-server) exposes a Casper-anchored price endpoint behind the standard x402 payment gate:
-- **`GET /api/v1/casper/price`**: An agent requests a specific card's price and receives price data **anchored to the on-chain Casper Merkle root** — independently verifiable against the contract ([`0235f90c…`](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77)) without trusting our API. Access is gated by the oracle's standard **x402 HTTP 402 challenge (USDC on Base)**. *The Casper contribution is the on-chain price Merkle root, not a CSPR-native payment leg — the 402 gate is live and demoable; native-CSPR settlement is not implemented.*
+- **`GET /api/v1/casper/price`**: An agent requests a specific card's price and receives price data **anchored to the on-chain Casper Merkle root** — independently verifiable against the contract ([`0235f90c…`](https://testnet.cspr.live/contract/0235f90c8dac5ecb30011672fc60ce1e98d51c5adfb5c019f44622bfb344bd77)) without trusting our API. Access is gated by the oracle's standard **x402 HTTP 402 challenge (USDC on Base)**. *The Casper contribution is the on-chain price Merkle root; the primary 402 gate settles USDC on Base. A native-CSPR lane on this endpoint verifies a 1-CSPR transfer by deploy hash (amount + recipient + replay protection) — tested end-to-end on testnet 2026-07-18 (payment `e2bfa57b…` → 200 + Merkle proof; replay → 400; wrong-recipient → 402).*
 - Automatically handles wallet signature authentication for the Casper Network via the local `.pem` vault.
 
 ---
