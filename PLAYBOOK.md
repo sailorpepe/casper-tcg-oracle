@@ -5,7 +5,7 @@ wallet, or payment is required for Steps 1–5.
 
 ## What this MVP does (the claim you are verifying)
 
-Every day we build a Merkle tree over ~276,000 trading-card price rows and commit
+Every hour we build a Merkle tree over ~284,000 trading-card price rows and commit
 the **root** to an Odra/Rust smart contract on **Casper Testnet**. Because the root
 is on-chain *before* anyone queries it, any agent can verify that a card's price is
 the one we committed — without trusting our off-chain API. Casper's role is the
@@ -36,16 +36,16 @@ Confirm status **Success** on chain `casper-test`.
 
 ## Step 3 — Inspect the current Merkle root
 
-The most recent daily root-commit deploy:
+A recent hourly root-commit deploy (2026-07-18):
 ```
-d0c6220d406df0b0003488e92890ea4d1b11971058de5c53d200e9ed0bbc74fa
+07db0bd24c4c28d731ab7555ceb8d1046f5a3cae6e36c39abdb2182c735641b2
 ```
 The on-chain `merkle_root` value it wrote:
 ```
-0xeb2ca568a5d3595e269b6384235eed799bd69bcc56c52e743c4b320795480103
+0xab759847e136ed63c8cee15ab2f00d57e15ca60edff7f347440757c768b2ba0e
 ```
 Confirm the deploy executed **Success**, and that `get_root` returns this value.
-(The root changes daily as prices update — this is the point: fresh, timestamped,
+(The root changes hourly as prices update — this is the point: fresh, timestamped,
 on-chain.)
 
 ## Step 4 — Build & test the contract locally
@@ -89,8 +89,8 @@ Step 3 — meaning the price you were served is provably the committed one.
 
 ## Honest scope (what this is and isn't)
 
-- **Is:** a live Odra/Rust contract on Casper Testnet holding a daily, verifiable
-  Merkle root over a real 276K-row TCG price database; reproducible build + tests;
+- **Is:** a live Odra/Rust contract on Casper Testnet holding an hourly, verifiable
+  Merkle root over a real 284K-row TCG price database; reproducible build + tests;
   a live x402-gated read endpoint.
 - **Isn't:** a native-CSPR payment leg. Payment settlement runs on the existing
   x402 USDC-on-Base rail; Casper's contribution here is the **on-chain price

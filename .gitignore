@@ -7,4 +7,4 @@ Cargo.lock
 /wasm
 .env
 *.pem
-venv/
+venv/__pycache__/
